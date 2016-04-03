@@ -1,3 +1,11 @@
+var Character = function() {
+
+};
+
+Character.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
 // Enemies our player must avoid
 var Enemy = function(row, speed) {
     // Variables applied to each of our instances go here,
@@ -21,6 +29,10 @@ var Enemy = function(row, speed) {
     this.sprite = 'images/enemy-bug.png';
 };
 
+// Tie subclass to superclass
+Enemy.prototype = Object.create(Character.prototype);
+Enemy.prototype.constructor = Enemy;
+
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
@@ -35,9 +47,7 @@ Enemy.prototype.update = function(dt) {
 };
 
 // Draw the enemy on the screen, required method for game
-Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
+
 
 // Now write your own player class
 // This class requires an update(), render() and
@@ -48,12 +58,11 @@ var Player = function() {
   this.y = 5 * 83;
 };
 
+Player.prototype = Object.create(Character.prototype);
+Player.prototype.constructor = Player;
+
 Player.prototype.update = function(dt) {
 
-};
-
-Player.prototype.render = function() {
-  ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
 Player.prototype.handleInput = function(key) {

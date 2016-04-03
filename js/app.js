@@ -69,7 +69,7 @@ Player.prototype.handleInput = function(key) {
       }
       if(this.y === 0){
         alert("Congrats!");
-        player.reset();
+        this.reset();
       }
       break;
     case "right":
@@ -92,11 +92,11 @@ Player.prototype.checkCollisions = function() {
   // loop through all enemies and check collision at the edges
   for(var i = 0; i < allEnemies.length; i++) {
     if ((
-        (player.x-(83/2) <= allEnemies[i].x + (83/2) &&
-        player.x - (83/2) >= allEnemies[i].x - (83/2)) ||
-        (player.x+(83/2) <= allEnemies[i].x + (83/2) &&
-        player.x + (83/2) >= allEnemies[i].x - (83/2))) && allEnemies[i].y == player.y) {
-      player.reset();
+        (this.x-(83/2) <= allEnemies[i].x + (83/2) &&
+        this.x - (83/2) >= allEnemies[i].x - (83/2)) ||
+        (this.x+(83/2) <= allEnemies[i].x + (83/2) &&
+        this.x + (83/2) >= allEnemies[i].x - (83/2))) && allEnemies[i].y == this.y) {
+      this.reset();
     }
   }
 };
@@ -106,34 +106,37 @@ Player.prototype.logLocation = function() {
   for(var i = 0; i < allEnemies.length; i++) {
     console.log("Enemy: " + allEnemies[i].x + ", " + allEnemies[i].y);
   }
-  console.log("Player: " + player.x + ", " + player.y);
+  console.log("Player: " + this.x + ", " + this.y);
 };
 
 // reset and put player back
 Player.prototype.reset = function() {
-  player.x = 2 * 101;
-  player.y = 5 * 83;
-  player.render();
+  this.x = 2 * 101;
+  this.y = 5 * 83;
+  this.render();
 };
 
 // generate random number
 var randomNumber = function(min, max) {
   return Math.floor(Math.random() * (max - min +1)) + min;
-}
+};
 
 // Now instantiate your objects.
 //parameters are row from top and speed
 // use random number for row (1-3) and random speed (1-5)
-var enemy1 = new Enemy(randomNumber(1,3), randomNumber(1,5));
-var enemy2 = new Enemy(randomNumber(1,3), randomNumber(1,5));
-var enemy3 = new Enemy(randomNumber(1,3), randomNumber(1,5));
-var enemy4 = new Enemy(randomNumber(1,3), randomNumber(1,5));
-var enemy5 = new Enemy(randomNumber(1,3), randomNumber(1,5));
+// var enemy1 = new Enemy(randomNumber(1,3), randomNumber(1,5));
+// var enemy2 = new Enemy(randomNumber(1,3), randomNumber(1,5));
+// var enemy3 = new Enemy(randomNumber(1,3), randomNumber(1,5));
+// var enemy4 = new Enemy(randomNumber(1,3), randomNumber(1,5));
+// var enemy5 = new Enemy(randomNumber(1,3), randomNumber(1,5));
 
 
 // Place all enemy objects in an array called allEnemies
-
-var allEnemies = [enemy1, enemy2, enemy3, enemy4, enemy5];
+var enemyCount = 5;
+var allEnemies = [];
+for(var i = 0; i < enemyCount; i++) {
+  allEnemies.push(new Enemy(randomNumber(1,3), randomNumber(1,5)));
+}
 
 // Place the player object in a variable called player
 
